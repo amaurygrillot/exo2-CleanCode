@@ -15,7 +15,7 @@ public class TextDisplayManager {
         System.out.println("-===========================-");
     }
 
-    public void displayWinMessage()
+    public void displayGameWinMessage()
     {
         System.out.println("You found it after " + gameData.getAttempts() + " tries!");
     }
@@ -37,7 +37,7 @@ public class TextDisplayManager {
 
         System.out.println("debug : the expected number is " + gameData.getNumber());
     }
-    public void displayGameOverMessage()
+    public void displayGameLostMessage()
     {
         System.out.println("You lose after " + gameData.getMaxAttempts() + " tries, the expected number was " + gameData.getNumber());
     }

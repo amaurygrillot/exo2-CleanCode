@@ -25,22 +25,25 @@ public class GameManager {
         while(continuePlaying) {
             textDisplayManager.displayFirstMessage();
 
-            this.gameLoop();
+            boolean gameWon = this.gameLoop();
 
-            if (gameData.getNumber() != gameData.getUserGuess()) {
-                textDisplayManager.displayGameOverMessage();
+            if (gameWon) {
+                textDisplayManager.displayGameWinMessage();
+            }
+            else
+            {
+                textDisplayManager.displayGameLostMessage();
             }
 
             textDisplayManager.displayReplayMessage();
-            String userResponse = inputManager.nextLine().trim().toLowerCase();
-            continuePlaying = userResponse.equals("yes");
+            continuePlaying = replay();
             if (continuePlaying) {
                 gameData.resetGame();
             }
         }
     }
 
-    private void gameLoop()
+    private boolean gameLoop()
     {
         while (gameData.getNumber() != gameData.getUserGuess() && gameData.getAttempts() < gameData.getMaxAttempts()) {
             String input =  inputManager.nextLine();
@@ -48,15 +51,27 @@ public class GameManager {
             try {
                 gameData.setUserGuess(Integer.parseInt(input));
                 if (gameData.getUserGuess() == gameData.getNumber()) {
-                    textDisplayManager.displayWinMessage();
-                    break;
-                } else {
-                    String divergence = gameData.getUserGuess() < gameData.getNumber() ? "smaller" : "greater";
+                    return true;
+                }
+                else {
+                    String divergence = getDivergence();
                     textDisplayManager.displayWrongGuessMesage(divergence);
                 }
             } catch (NumberFormatException e) {
                 textDisplayManager.displayWrongInputMessage(input);
             }
         }
+        return false;
+    }
+
+    private String getDivergence()
+    {
+        return gameData.getUserGuess() < gameData.getNumber() ? "smaller" : "greater";
+    }
+
+    private boolean replay()
+    {
+        String userResponse = inputManager.nextLine().trim().toLowerCase();
+        return userResponse.equals("yes");
     }
 }
