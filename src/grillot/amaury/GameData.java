@@ -59,4 +59,10 @@ public class GameData {
     public void setNumber(int number) {
         this.number = number;
     }
+
+    public void resetGame() {
+        this.userGuess = 0;
+        this.attempts = 0;
+        this.number = RandomGenerator.getRandomNumber(100);
+    }
 }

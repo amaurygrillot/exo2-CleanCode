@@ -35,8 +35,7 @@ public class GameManager {
             String userResponse = inputManager.nextLine().trim().toLowerCase();
             continuePlaying = userResponse.equals("yes");
             if (continuePlaying) {
-                gameData.setUserGuess(0);
-                gameData.setAttempts(0);
+                gameData.resetGame();
             }
         }
     }
